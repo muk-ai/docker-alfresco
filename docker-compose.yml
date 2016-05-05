@@ -1,0 +1,39 @@
+version: "2"
+services:
+  nginx:
+    image: nginx
+    volumes:
+      - "./nginx/alfresco.conf:/etc/nginx/conf.d/alfresco.conf:ro"
+    ports:
+      - "80:80"
+    depends_on:
+      - alfresco
+    networks:
+      - flat-network
+  alfresco:
+    build: ./alfresco
+    expose:
+      - "8080"
+    depends_on:
+      - db
+    volumes:
+      - "alfresco-data:/opt/alfresco/alf_data/"
+    networks:
+      - flat-network
+  db:
+    image: mysql:5.7
+    volumes:
+      - "db-data:/var/lib/mysql"
+      - "./db/mysql/conf.d/:/etc/mysql/conf.d:ro"
+    environment:
+      MYSQL_ROOT_PASSWORD: "change_my_password"
+      MYSQL_DATABASE: "alfresco"
+      MYSQL_USER: "alfresco"
+      MYSQL_PASSWORD: "alfresco"
+    networks:
+      - flat-network
+volumes:
+  db-data:
+  alfresco-data:
+networks:
+  flat-network:
