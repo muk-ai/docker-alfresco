@@ -1,0 +1,20 @@
+# see http://docs.alfresco.com/5.1/concepts/silent-alf-install.html
+mode=unattended
+installer-language=ja
+enable-components=alfrescosolr4,libreofficecomponent
+disable-components=postgres
+
+# Use JDBC settings for an existing database
+jdbc_url=jdbc:mysql://db:3306/alfresco?useUnicode=yes&characterEncoding=UTF-8
+jdbc_driver=org.gjt.mm.mysql.Driver
+jdbc_database=alfresco
+jdbc_username=alfresco
+jdbc_password=alfresco
+
+# Install location
+prefix=/opt/alfresco
+
+alfresco_admin_password=admin
+
+# install init scripts
+baseunixservice_install_as_service=1
